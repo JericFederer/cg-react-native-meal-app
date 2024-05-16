@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -15,8 +15,16 @@ export default function App() {
       <StatusBar style='inverted'/>
       <NavigationContainer independent={ true }>
         <Stack.Navigator>
-          <Stack.Screen name="Meals Categories" component={ CategoriesScreen } />
-          <Stack.Screen name="Meals Overview" component={ MealsOverviewScreen } />
+          <Stack.Screen
+            name="MealsCategories"
+            component={ CategoriesScreen }
+            options={{ title: "Meals Categories" }}
+          />
+          <Stack.Screen
+            name="MealsOverview"
+            component={ MealsOverviewScreen }
+            options={{ title: "Meals Overview" }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
