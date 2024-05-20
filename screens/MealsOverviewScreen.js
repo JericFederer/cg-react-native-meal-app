@@ -1,10 +1,11 @@
+import { useLayoutEffect } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
-import { MEALS } from '../data/dummy-data';
+import { MEALS, CATEGORIES } from '../data/dummy-data';
 import MealItem from '../components/MealItem';
 
-function MealOverviewScreen({ route }) {
+function MealOverviewScreen({ route, navigation }) {
   // * Also usable to get the 'route' object
   // const route = useRoute();
 
@@ -15,10 +16,22 @@ function MealOverviewScreen({ route }) {
     return mealItem.categoryIds.indexOf(categoryId) >= 0;
   }); //: displayedMeals
 
+  // * useLayoutEffect for category screen header title
+  useLayoutEffect(() => {
+    // * Get the current category's title
+    const categoryTitle = CATEGORIES.find((category) => category.id === categoryId).title;
+
+    // * Set the screen header into the the current category's title
+    navigation.setOptions({
+      title: categoryTitle,
+    });
+  }, [categoryId, navigation]); //: useLayoutEffect
+  
   function renderMealItem(itemData) {
     const item = itemData.item;
 
     const mealItemProps = {
+      id: itemData.item.id,
       title: itemData.item.title,
       imageUrl: itemData.item.imageUrl,
       duration: itemData.item.duration,
